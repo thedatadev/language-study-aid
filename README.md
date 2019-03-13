@@ -8,8 +8,8 @@ Learning a foreign language has many benefits, and people do it for many differe
 
 ## Implementation
 This project can be broken down into the following epics:
-    1. Proficiency classification
-    2. Building a corpus of resources
+1. Proficiency classification
+2. Building a corpus of resources
 
 ### Proficiency classification
 Classifying resources according to predefined proficiency taxonomies (e.g. formal/official benchmarks of language proficiency such as JLPT and IELTS). This involves scanning the document of an article or the transcript of a video to determine the overall level of proficiency.
@@ -19,5 +19,5 @@ There has to be a corpus of resources from which learners can access articles an
 
 ## Future work
 The specification above pertains to the MVP. The following additional features would greatly improve the utility of this project:
-    1. Given text or audio artefacts produced by the learner, e.g. diary entries or speech recordings, assess the learner's language level based on these artefacts to improve the quality of recommended resources
-    2. To mitigate the effects of cold-start due to a small resource repository, utilise natural language generation techniques to generate short texts that suit the learner's language level
+1. Given text or audio artefacts produced by the learner, e.g. diary entries or speech recordings, assess the learner's language level based on these artefacts to improve the quality of recommended resources
+2. To mitigate the effects of cold-start due to a small resource repository, utilise natural language generation techniques to generate short texts that suit the learner's language level
