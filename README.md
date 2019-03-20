@@ -1,5 +1,7 @@
 # Language Study Aid (tentative name)
 
+## NOTE: Currently the project is focused on Japanese language learners. Support for other languages to be added at a later date
+
 ## Description (of MVP)
 An application to make developing proficient reading and listening skills in foreign languages easy for language learners. The application serves as a recommender engine for online text articles as well as videos that suit a learner's proficiency level.
 
