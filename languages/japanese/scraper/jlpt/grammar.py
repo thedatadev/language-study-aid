@@ -31,7 +31,7 @@ if __name__ == "__main__":
         grammar = get_grammar(level)
 
         # Save grammar to file
-        filepath = f"../jlpt/n{level}/grammar.json"
+        filepath = f"../../jlpt/n{level}/grammar.json"
         with open(filepath, "w+") as f:
             f.write(json.dumps(grammar))
         print(f"Finished downloading page for JLPT N{level}")
