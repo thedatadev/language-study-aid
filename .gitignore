@@ -1,1 +1,2 @@
-/languages/japanese/vocabulary/source/venv
+/languages/*/venv
+/languages/*/resources/*
