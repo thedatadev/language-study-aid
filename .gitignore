@@ -1,2 +1,3 @@
 /languages/*/venv
 /languages/*/resources/*
+/languages/*/models/word2vec/pretrained/*
