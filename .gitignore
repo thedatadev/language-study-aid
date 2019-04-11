@@ -1,3 +1,5 @@
 /languages/*/venv
 /languages/*/resources/*
 /languages/*/models/word2vec/pretrained/*
+/languages/*/models/saved_models
+/languages/*/models/*.pkl

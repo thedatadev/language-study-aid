@@ -107,5 +107,6 @@ def train(model, X, y):
         pickle.dump(train_acc, train_acc_f)
 
     print(f"runtime: {time.time() - time_start} seconds")
+    print(f"Best model achieved a training accuracy of {best_accuracy}%")
 
     return all_losses
