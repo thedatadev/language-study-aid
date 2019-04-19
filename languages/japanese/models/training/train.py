@@ -52,7 +52,7 @@ def train(model, X, y):
 
     current_loss = 0
     all_losses = []
-    plot_every = 100
+    plot_every = 1_000
 
     train_acc = []
     predictions = []
