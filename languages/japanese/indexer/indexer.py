@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 import json
+import os
 
 from pprint import pprint
 
@@ -16,9 +17,17 @@ def load_vocabulary():
     return vocab
 
 def load_corpus():
-    # NOTE: easy articles for now
-    #       implement hard articles later
-    return pd.DataFrame({})
+    root_dir = "../resources"
+    # TODO: easy articles for now
+    #       implement hard articles later and merge ontp easy articles
+    df = load_file(root_dir, filename="/nhk_news/easy_articles.csv")
+    return df
+
+def load_file(root_dir, filename):
+    filepath = os.path.join(root_dir, filename)
+    df = pd.read_csv(filepath)
+    return df
+
 
 ###############  Data structures  ###############
 
@@ -31,7 +40,6 @@ class TrieNode:
     def insert_posting(self):
         # a postings list is an ordered linked list of document IDs e.g. nhk IDs
         pass
-
 
 class Trie:
     def __init__(self):
@@ -62,21 +70,21 @@ class Trie:
 
 
 if __name__ == "__main__":
-    # TODO:
+
     # import all vocab (TODO: do grammar as well) file from jlpt n1-n5 folders
     vocab = load_vocabulary()
 
-    # create a trie index to store each vocab and its postings list
-    index = Trie()
-    index.construct(vocab)
-
     # iterate over the nhk corpus, and scan each word in each article
-    corpus = load_corpus()
-    for _, row in corpus.iterrows():
-        nhk_id = row['nhk_ids']
-        text = row['texts']
-        # if the word appears in the dictionary, record the article's nhk ID in its postings list
-        index.insert_words_from_text(text, nhk_id)
+    # corpus = load_corpus()
+    # for _, row in corpus.iterrows():
+    #     nhk_id = row['nhk_ids']
+    #     text = row['texts']
+    #     # if the word appears in the dictionary, record the article's nhk ID in its postings list
+    #     index.insert_words_from_text(text, nhk_id)
+
+    # create a trie index to store each vocab and its postings list
+    # index = Trie()
+    # index.construct(vocab)
         
     # create methods to serialize the trie into JSON
     # create methods to retrieve entries from the trie
