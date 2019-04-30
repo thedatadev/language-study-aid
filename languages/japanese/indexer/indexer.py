@@ -25,6 +25,48 @@ def load_corpus():
     corpus = pd.concat([easy, hard], ignore_index=True)
     return corpus
 
+def retrieve(query=[]):
+
+    postings_lists = load_postings_lists()
+    word_to_idx = load_word_to_idx()
+    results = []
+
+    # retrieve postings lists for each word in query
+    for word in query:
+        if word in word_to_idx:
+            indices = word_to_idx[word]
+            for idx in indices:
+                results.append(postings_lists[idx])
+
+    # tally doc_id's
+    doc_id_counts = {}
+    for postings_list in results:
+        for doc_id in postings_list:
+            if not doc_id in doc_id_counts:
+                doc_id_counts[doc_id] = 0
+            doc_id_counts[doc_id] += 1
+
+    # order doc_id's in desc. order of frequency
+    sorted_doc_id_freqs = sorted([(doc_id, doc_id_counts[doc_id]) \
+                                    for doc_id in doc_id_counts], \
+                                        reverse=True, key=lambda x: x[1])
+
+    # retrieve the documents for the top k most frequent doc_id's
+    top_k = 10
+    documents = [ get_document(doc_id=doc_id) for doc_id, _ in sorted_doc_id_freqs ]
+    documents = documents[:top_k]
+
+    return documents
+
+def load_postings_lists():
+    return []
+
+def load_word_to_idx():
+    return []
+
+def get_document():
+    return []
+
 if __name__ == "__main__":
 
     vocab = load_vocabulary()
