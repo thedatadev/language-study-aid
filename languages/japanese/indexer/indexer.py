@@ -4,16 +4,19 @@ import json
 import os
 
 from pprint import pprint
+import time
 
 JLPT_levels = [1, 2, 3, 4, 5]
 
-###############  Loading files  ###############
 def load_vocabulary():
-    vocab = {}
+    vocab = []
     for level in JLPT_levels:
         vocab_filepath = f"../jlpt/n{level}/vocab.json"
         with open(vocab_filepath) as f:
-            vocab[f"n{level}"] = json.load(f)
+            level_vocab = json.load(f)
+            for word in level_vocab:
+                word['level'] = level
+                vocab.append(word)
     return vocab
 
 def load_corpus():
@@ -22,68 +25,26 @@ def load_corpus():
     corpus = pd.concat([easy, hard], ignore_index=True)
     return corpus
 
-
-###############  Data structures  ###############
-
-class TrieNode:
-    def __init__(self):
-        # each vocab must have a terminal node that stores a postings list
-        self.postings_list = []
-        self.next_characters = {}
-
-    def insert_posting(self):
-        # a postings list is an ordered linked list of document IDs e.g. nhk IDs
-        pass
-
-class Trie:
-    def __init__(self):
-        self.root = TrieNode()
-        self.size = 0
-
-    def __dict__(self):
-        ''' Required for serialization '''
-        pass
-
-    def construct(self, dictionary):
-        ''' Constructs the Trie index given a dictionary '''
-        pass
-
-    def insert_words_from_text(self, text, id):
-        pass
-
-    def insert_word(self):
-        pass
-
-    def lookup_word(self):
-        '''
-            1. Given a word, look it up in the Trie
-            2. If it exists, return the node
-            3. Call the 'insert_posting' method on the node to insert the document's ID
-        '''
-        pass
-
-
 if __name__ == "__main__":
 
-    # import all vocab (TODO: do grammar as well) file from jlpt n1-n5 folders
-    # vocab = load_vocabulary()
-
-    # iterate over the nhk corpus, and scan each word in each article
+    vocab = load_vocabulary()
     corpus = load_corpus()
+    postings_lists = [ list() for _ in range(len(vocab)) ] 
 
-    # for _, row in corpus.iterrows():
-    #     text = row['texts']
-    #     doc_id = row['reddit_ids']
-        
-        
+    start = time.time()
 
-    # create a trie index to store each vocab and its postings list
-    # index = Trie()
-    # index.construct(vocab)
+    for _, row in corpus.iterrows():
+        text = row['texts']
+        doc_id = row['reddit_ids']
         
-    # create methods to serialize the trie into JSON
-    # create methods to retrieve entries from the trie
-    # create methods to perform postings list intersection
-    # create method to preprocess/standardize words into dictionary form etc.
+        for idx, word in enumerate(vocab):
 
+            if (len(word['kanji']) and word['kanji'] in text) or \
+                (len(word['hiragana']) and word['hiragana'] in text):
+
+                postings_lists[idx].append(doc_id)
+        
+    end = time.time()
+
+    print(f"Runtime: {end - start} seconds")
 
