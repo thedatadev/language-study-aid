@@ -59,7 +59,12 @@ if __name__ == "__main__":
                 word_to_idx[word['hiragana']] = []
             word_to_idx[word['hiragana']].append(idx)
 
+    # save to file w/ pickle
+    with open(os.path.join(os.getcwd(), "postings-lists.pkl"), "wb+") as f:
+        pickle.dump(postings_lists, f)
 
+    with open(os.path.join(os.getcwd(), "word-to-idx.pkl"), "wb+") as f:
+        pickle.dump(word_to_idx, f)
         
     end = time.time()
 
