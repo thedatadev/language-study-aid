@@ -33,6 +33,7 @@ if __name__ == "__main__":
 
     start = time.time()
 
+    # postings lists
     for _, row in corpus.iterrows():
         text = row['texts']
         doc_id = row['reddit_ids']
@@ -43,6 +44,22 @@ if __name__ == "__main__":
                 (len(word['hiragana']) and word['hiragana'] in text):
 
                 postings_lists[idx].append(doc_id)
+
+    # word to index
+    word_to_idx = dict()
+    for idx, word in enumerate(vocab):
+        # map kanji->idx
+        if len(word['kanji']):
+            if not word['kanji'] in word_to_idx:
+                word_to_idx[word['kanji']] = []
+            word_to_idx[word['kanji']].append(idx)
+        # map hiragana->idx
+        if len(word['hiragana']):
+            if not word['hiragana'] in word_to_idx:
+                word_to_idx[word['hiragana']] = []
+            word_to_idx[word['hiragana']].append(idx)
+
+
         
     end = time.time()
 
