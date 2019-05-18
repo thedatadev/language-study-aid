@@ -1,0 +1,35 @@
+#landing {
+  font-family: Helvetica, Arial, sans-serif;
+  width: 96%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    color: rgb(71, 70, 91);
+    margin-top: 100px;
+    font-weight: 100;
+  }
+  p {
+    width: 70%;
+    max-width: 400px;
+    margin: 20px auto 0;
+    color: rgb(144, 142, 161);
+    font-weight: 100;
+  }
+  button {
+    font-size: 1.8em;
+    padding: 2px 22px 6px;
+    background-color: rgb(34, 232, 113);
+    border-radius: 12px;
+    border: none;
+    margin-top: 20px;
+    font-weight: 200;
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(17, 214, 96);
+    }
+    a {
+      color: white;
+    }
+  }
+}
