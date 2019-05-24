@@ -86,7 +86,9 @@ function buildCorpus() {
   });
 
   rl.on('close', function() {
-    // TODO: Emit an event to handle the corpus
+    // Write corpus to disk
+    const corpusFilepath = path.join(__dirname, "corpus.json");
+    fs.writeFileSync(corpusFilepath, JSON.stringify(corpus));
   });
 
 }
