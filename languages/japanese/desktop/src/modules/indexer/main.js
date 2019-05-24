@@ -74,14 +74,21 @@ function buildCorpus() {
 
   // Once the readline.Interface instance is created,
   // the most common case is to listen for the 'line' event:
+
+  function strip(str) {
+      return str.replace(/^\s+|\s+$/g, '');
+  }
+
   rl.on('line', function(doc) {
       if (header) {
         // Skip header
         header = false;
       } else {
         // Add next document to corpus
-        corpus.push(process(doc));
-        docID++;
+        if (strip(doc).length > 0) {
+          corpus.push(process(doc));
+          docID++;
+        }
       }
   });
 
