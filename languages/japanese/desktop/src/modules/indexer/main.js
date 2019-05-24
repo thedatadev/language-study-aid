@@ -2,11 +2,16 @@
 
 File I/O to read a corpus
 
+TODO: Fix CSV parsing exceptions for anomaly data
+
 */
 
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+
+let docID = 0;
+
 
 function pipeline(input, ...fns) {
   /*
@@ -34,11 +39,17 @@ function process(row) {
   */
 
   function split(row) {
+    if (docID === 45) {
+      console.log(`Before split: ${row}`);
+    }
     const delimiter = ",";
     return row.split(delimiter);
   }
 
   function extract(row) {
+    if (docID === 45) {
+      console.log(`Before extract: ${row}`);
+    }
     //id,reddit_ids,titles,texts,urls,nhk_ids,dates
     const titles = 2;
     const texts = 3;
@@ -46,6 +57,7 @@ function process(row) {
       title: row[titles],
       text: row[texts]
     }
+
     return data;
   }
 
@@ -69,7 +81,6 @@ function buildCorpus() {
   });
 
   let header = true;
-  let docID = 0;
   let corpus = [];
 
   // Once the readline.Interface instance is created,
@@ -85,10 +96,14 @@ function buildCorpus() {
         header = false;
       } else {
         // Add next document to corpus
-        if (strip(doc).length > 0) {
-          corpus.push(process(doc));
-          docID++;
-        }
+        // if (strip(doc).length > 0) {
+        //
+        // }
+        corpus.push(process(doc));
+        docID++;
+        // if (docID === 44) {
+        //   console.log(doc);
+        // }
       }
   });
 
