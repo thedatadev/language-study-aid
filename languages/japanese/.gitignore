@@ -1,2 +1,4 @@
 .vscode
 indexer/*.pkl
+jlpt/*
+*/.DS_Store
