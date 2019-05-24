@@ -11,12 +11,20 @@ class Entry extends React.Component {
 
   // Private member functions
   // ...
+  trimEntryText = text => {
+    if (text.length <= 200) {
+      return text;
+    } else {
+      return text.substring(0,100) + "...";
+    }
+  }
 
   // Render function
   render() {
     return (
       <div className="entry">
-        <p>{this.props.entry}</p>
+        <div className="entry-title">{this.props.entry.title}</div>
+        <div className="entry-text">{this.trimEntryText(this.props.entry.text)}</div>
       </div>
     );
   }

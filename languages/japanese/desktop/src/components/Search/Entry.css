@@ -4,3 +4,8 @@
   border-radius: 12px;
   box-shadow: 0 2px 7px 2px #eee;
 }
+
+.entry-title {
+  font-weight: 500;
+  padding: 9px 0 18px;
+}
