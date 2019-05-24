@@ -14,9 +14,13 @@ class Search extends React.Component {
     super();
     this.state = {
 
+      currentLevel: null,
+
       currentQuery: '',
 
-      entries: [
+      entries: [],
+
+      placeholderEntries: [
 
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
 
@@ -58,16 +62,33 @@ class Search extends React.Component {
     });
   }
 
+  showNotification = message => {
+    return <p class="notification">{message} {this.state.currentLevel}</p>
+  }
+
+  showResults = () => {
+    if (this.state.entries.length === 0) {
+      return this.showNotification("There are no entries. Please select a tab above to display entries.")
+    } else {
+      return <Results filteredEntries={this.filteredEntries} />
+    }
+  }
+
+  updateLevel = event => {
+    this.setState({currentLevel: event.target.innerHTML});
+  }
+
   // Render function
   render() {
     return (
       <div className="Search">
 
-        <Filter></Filter>
+        <Filter updateLevel={this.updateLevel}></Filter>
 
         <Query handleInput={this.handleInput} />
 
-        <Results filteredEntries={this.filteredEntries} />
+        {this.showResults()}
+
 
       </div>
     );

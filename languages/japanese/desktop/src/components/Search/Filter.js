@@ -11,14 +11,10 @@ class Filter extends React.Component {
     }
   }
 
-  updateLevel = event => {
-    this.setState({currentLevel: event.target.innerHTML});
-  }
-
   filterTab = (tab) => {
     return <div className="filter-tab"
                 key={tab}
-                onClick={this.updateLevel}>{tab}</div>
+                onClick={this.props.updateLevel}>{tab}</div>
   }
 
   render() {
