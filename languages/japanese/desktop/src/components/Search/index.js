@@ -3,6 +3,7 @@ import React from 'react';
 // Components
 import Results from './Results';
 import Query from './Query';
+import Filter from './Filter';
 
 // Styling
 import './Search.css';
@@ -61,6 +62,8 @@ class Search extends React.Component {
   render() {
     return (
       <div className="Search">
+
+        <Filter></Filter>
 
         <Query handleInput={this.handleInput} />
 

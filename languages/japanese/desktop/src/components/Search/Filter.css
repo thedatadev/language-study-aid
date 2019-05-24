@@ -1,0 +1,43 @@
+.filter {
+  display: flex;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.filter-class {
+  width: 20%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-class p {
+  font-size: 1.6em;
+  font-weight: 400;
+  background-color: white;
+  padding-right: 30px;
+  border-right: 4px solid coral;
+}
+
+.filter-tabs {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.filter-tab {
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 10px 7px 2px #eee;
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-tab:hover {
+  cursor: pointer;
+  background-color: rgb(245, 183, 148);
+  transform: translateY(-2px);
+  color: white;
+
+}
