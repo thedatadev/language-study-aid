@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* TODO: maybe extract out to smaller components */
+  font-weight: 100;
+  color: rgb(94, 93, 131);
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.Search {
+  padding: 20px;
+}
