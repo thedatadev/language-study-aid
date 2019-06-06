@@ -6,9 +6,14 @@ const corpusFilepath = path.join(__dirname, "corpus.json");
 const corpusFile = fs.readFileSync(corpusFilepath);
 const corpus = JSON.parse(corpusFile.toString());
 
+let article = corpus[0];
+let title = article.title;
+let text = article.text;
 
-let idx = 45;
-console.log(corpus[idx]);
+console.log(text);
+
+// let idx = 45;
+// console.log(corpus[idx]);
 
 // let query = prompt(">> ");
 // let idx;
