@@ -4,12 +4,16 @@ import torch.nn.functional as F
 
 import training.config as config
 
+forward_counter = 0
+
+
 class RNN(nn.Module):
     ''' Basic Recurrent Neural Network '''
     
     def __init__(self):
         ''' Describe the network topology '''
         super(RNN, self).__init__()
+        self.counter = 0
 
         self.criterion = nn.CrossEntropyLoss()
 
@@ -22,12 +26,18 @@ class RNN(nn.Module):
 
     def forward(self, input, hidden):
         ''' Describe the flow from input layer to output layer '''
+        global forward_counter
 
         combined = torch.cat((input, hidden), 1)
 
         hidden = self.i2h(combined)
         output = self.i2o(combined)
         output = self.softmax(output)
+        
+
+        forward_counter += 1
+        print(forward_counter)
+
 
         return output, hidden
 

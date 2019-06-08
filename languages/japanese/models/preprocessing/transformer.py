@@ -20,7 +20,7 @@ def filter_empty(X, y):
     non_empty_indices = [idx for idx, article in enumerate(X) if len(article) > 0]
     X = pd.Series([X[idx] for idx in non_empty_indices])
     y = pd.Series([y[idx] for idx in non_empty_indices])
-    return X, y
+    return X, y, non_empty_indices
 
 def tensorize(X, y):
     X = [ torch.tensor(article) for article in X ]
@@ -30,13 +30,26 @@ def tensorize(X, y):
 
 def transform_dataset(X, y):
 
+    # NOTE: required for RNN visual project
+    tracker = {
+        "tokenized": {
+            "X": [],
+            "y": []
+        }
+    }
     # 1. Tokenize each article
-    X = tokenize(X)
-    # 2. Embed articles
-    X = embed(X)
-    # 3. Filter empty articles
-    X, y = filter_empty(X, y)
-    # 4. Tensorize the data
-    X, y = tensorize(X, y)
+    X_tok = tokenize(X)
 
-    return X, y
+    # 2. Embed articles
+    X_em = embed(X_tok)
+
+    # 3. Filter empty articles
+    X_fil, y_fil, non_empty_indices = filter_empty(X_em, y)
+
+    # 4. Tensorize the data
+    X_ten, y_ten = tensorize(X_fil, y_fil)
+
+    tracker["tokenized"]["X"] = pd.Series([X_tok[idx] for idx in non_empty_indices])
+    tracker["tokenized"]["y"] = pd.Series([y[idx] for idx in non_empty_indices])
+
+    return X_ten, y_ten, tracker
