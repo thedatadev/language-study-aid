@@ -8,11 +8,6 @@ import Filter from './Filter';
 // Styling
 import './Search.css';
 
-// Electron
-// const electron = window.require('electron');
-// const fs  = electron.remote.require('fs');
-// const ipcRenderer = electron.ipcRenderer;
-
 class Search extends React.Component {
   // Local state; private member variables
   constructor() {
@@ -83,24 +78,28 @@ class Search extends React.Component {
 
   // Private member functions
   handleInput = e => {
-    this.setState({currentQuery: e.target.value});
+    // this.setState({currentQuery: e.target.value});
+    if (e.key == "Enter") {
+      this.loadEntries();
+    } 
   }
 
-  filteredEntries = () => {
-    return this.state.currentEntries.filter((entry) => {
-      return entry.text.includes(this.state.currentQuery);
-    });
-  }
+  // filteredEntries = () => {
+  //   return this.state.currentEntries.filter((entry) => {
+  //     return entry.text.includes(this.state.currentQuery);
+  //   });
+  // }
 
   showNotification = message => {
-    return <p class="notification">{message}</p>
+    return <p className="notification">{message}</p>
   }
 
   showResults = () => {
     if (this.state.currentEntries.length === 0) {
       return this.showNotification("There are no entries. Please select a tab above to display entries.")
     } else {
-      return <Results filteredEntries={this.filteredEntries} />
+      // return <Results filteredEntries={this.filteredEntries} />
+      return <Results filteredEntries={this.state.currentEntries} />
     }
   }
 
@@ -111,56 +110,32 @@ class Search extends React.Component {
     });
   }
 
-  loadEntries = (query) => {
+  loadEntries = () => {
 
-    /*
+    // Break up query by space
+    // TODO
 
-    ---!!! Must use IPC to carry out any file system-related tasks. !!!---
-    TODO: Move this to electron.js or in a new file in the same directory.
+    let query = [ "世界", "日本" ];
 
-    */
+    const api_endpoint = "http://127.0.0.1:3300/api";
 
-    // // 1. Read in the jlpt-index.json file
-    // const jlptIndexFilepath = path.join(__dirname, "save", "jlpt-index.json");
-    // const jlptIndexFile = fs.readFileSync(jlptIndexFilepath);
-    // const jlptIndex = JSON.parse(jlptIndexFile.toString());
-
-    // // 2. Merge the postings list for each level
-    // let intersection;
-    // let postings;
-
-    // query.forEach(term => {
-    //   if (term in jlptIndex) {
-    //     postings = jlptIndex[term];
-    //     intersecton = merge(intersection, postings);
-    //   }
-    // }); 
-
-    // // 3. Read in all documents corresponding to each doID for each level
-    // const corpusFilepath = path.join(__dirname, "corpus.json");
-    // const corpusFile = fs.readFileSync(corpusFilepath);
-    // const corpus = JSON.parse(corpusFile.toString());
-
-    // // 4. Set the entries[level] to that level's list of documents
-    // let entries = {};
-    // const levels = ["n1", "n2", "n3", "n4", "n5"];
-
-    // levels.forEach(level => {
-    //   let docs = corpus[level];
-    //   entries[level] = [];
-    //   intersection.forEach(docID => {
-    //     if (docID in docs) {
-    //       entries[level].push(docs[docID]);
-    //     }
-    //   });
-    // });
+    let request = new Request(api_endpoint, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        "query": query
+      })
+    });
     
-    // // 5. Call this when the component is mounted
-    // this.setState({entries});
-  }
+    fetch(request)
+      .then(response => response.json())
+      .then(payload => {
+        this.setState({currentEntries: payload.entries});
+      })
 
-  componentDidMount() {
-    // this.loadEntries();
   }
 
   // Render function

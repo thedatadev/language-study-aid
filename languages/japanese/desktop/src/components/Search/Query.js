@@ -19,7 +19,8 @@ class Query extends React.Component {
         <input id="query"
                type="text"
                placeholder="Filter out text..."
-               onChange={this.props.handleInput}/>
+              //  onChange={this.props.handleInput}
+               onKeyPress={this.props.handleInput}/>
       </div>
     );
   }

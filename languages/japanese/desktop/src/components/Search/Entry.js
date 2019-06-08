@@ -17,6 +17,7 @@ class Entry extends React.Component {
     } else {
       return text.substring(0,100) + "...";
     }
+    
   }
 
   // Render function
