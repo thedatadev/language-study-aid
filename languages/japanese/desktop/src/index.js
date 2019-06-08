@@ -4,6 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// import { ipcRenderer } from 'electron';
+
+// let syncMessage = ipcRenderer.sendSync( 'synchronous-message', 'sync ping' );
+// console.log( `From main: ${ syncMessage }` );
+
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

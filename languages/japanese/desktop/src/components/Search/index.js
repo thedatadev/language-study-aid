@@ -8,6 +8,11 @@ import Filter from './Filter';
 // Styling
 import './Search.css';
 
+// Electron
+// const electron = window.require('electron');
+// const fs  = electron.remote.require('fs');
+// const ipcRenderer = electron.ipcRenderer;
+
 class Search extends React.Component {
   // Local state; private member variables
   constructor() {
@@ -104,6 +109,58 @@ class Search extends React.Component {
       currentLevel: event.target.innerHTML,
       currentEntries: this.state.entries[event.target.innerHTML]
     });
+  }
+
+  loadEntries = (query) => {
+
+    /*
+
+    ---!!! Must use IPC to carry out any file system-related tasks. !!!---
+    TODO: Move this to electron.js or in a new file in the same directory.
+
+    */
+
+    // // 1. Read in the jlpt-index.json file
+    // const jlptIndexFilepath = path.join(__dirname, "save", "jlpt-index.json");
+    // const jlptIndexFile = fs.readFileSync(jlptIndexFilepath);
+    // const jlptIndex = JSON.parse(jlptIndexFile.toString());
+
+    // // 2. Merge the postings list for each level
+    // let intersection;
+    // let postings;
+
+    // query.forEach(term => {
+    //   if (term in jlptIndex) {
+    //     postings = jlptIndex[term];
+    //     intersecton = merge(intersection, postings);
+    //   }
+    // }); 
+
+    // // 3. Read in all documents corresponding to each doID for each level
+    // const corpusFilepath = path.join(__dirname, "corpus.json");
+    // const corpusFile = fs.readFileSync(corpusFilepath);
+    // const corpus = JSON.parse(corpusFile.toString());
+
+    // // 4. Set the entries[level] to that level's list of documents
+    // let entries = {};
+    // const levels = ["n1", "n2", "n3", "n4", "n5"];
+
+    // levels.forEach(level => {
+    //   let docs = corpus[level];
+    //   entries[level] = [];
+    //   intersection.forEach(docID => {
+    //     if (docID in docs) {
+    //       entries[level].push(docs[docID]);
+    //     }
+    //   });
+    // });
+    
+    // // 5. Call this when the component is mounted
+    // this.setState({entries});
+  }
+
+  componentDidMount() {
+    // this.loadEntries();
   }
 
   // Render function

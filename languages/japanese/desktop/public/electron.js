@@ -1,11 +1,18 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const ipcMain = electron.ipcMain;
 
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 800, height: 600});
+    win = new BrowserWindow({
+        width: 800, 
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
 
     win.loadURL('http://localhost:3000');
 
@@ -25,3 +32,12 @@ app.on('activate', function() {
         createWindow();
     }
 })
+
+
+// // Event handler for synchronous incoming messages
+// ipcMain.on( 'synchronous-message', ( event, arg ) => {
+//     console.log( arg );
+
+//     // Synchronous event emission
+//     event.returnValue = 'sync pong';
+// })

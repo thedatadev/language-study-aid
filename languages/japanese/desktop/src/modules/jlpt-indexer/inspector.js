@@ -6,5 +6,5 @@ const jlptIndexFile = fs.readFileSync(jlptIndexFilepath);
 const jlptIndex = JSON.parse(jlptIndexFile.toString());
 
 console.log(Object.keys(jlptIndex).length);
-// console.log(Object.keys(jlptIndex["n1"]).length);
-// console.log(jlptIndex["n1"]["相"]);
+console.log(Object.keys(jlptIndex["n1"]).length);
+console.log(jlptIndex["n1"]["相"]);
