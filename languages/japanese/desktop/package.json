@@ -5,7 +5,7 @@
   "main": "public/electron.js",
   "devDependencies": {},
   "dependencies": {
-    "electron": "^5.0.1",
+    "electron": "^18.3.7",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
